@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Lesson1</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="button_name">Next screen</string>
+    <string name="defaultText">Test</string>
+    <string name="helloString">Hello World!</string>
+    <string name="toggleOn">ON</string>
+    <string name="toggleOff">OFF</string>
+    <string name="hint1">Просто текст</string>
+    <string name="hint2">ФИО</string>
+    <string name="hint3">+1(234)5678910</string>
+    <string name="hint4">password</string>
+    <string name="hint5">12345</string>
+    <string name="hint6">aaa@bbb.cc</string>
 </resources>
