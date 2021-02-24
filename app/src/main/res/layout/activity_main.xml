@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/paper11_"
+        app:srcCompat="@drawable/notebook11"
         android:scaleType="centerCrop"/>
     <include
         layout="@layout/calculator_table"
