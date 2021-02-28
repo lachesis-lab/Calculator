@@ -17,5 +17,8 @@
     <string name="buttonTextDivide">\u00F7</string>
     <string name="buttonTextEqual">=</string>
     <string name="buttonTextDel">C</string>
+    <string name="buttonTextPlusMinus">\u00B1</string>
+    <string name="buttonLeftBracket">(</string>
+    <string name="buttonRightBracket">)</string>
 
 </resources>
