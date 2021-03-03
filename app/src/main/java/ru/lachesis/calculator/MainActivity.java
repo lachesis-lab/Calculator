@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Formatter;
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity {
 
     private final static String TRACE_TAG = "Trace";
@@ -26,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_constraint);
+        setContentView(R.layout.activity_main);
         ConstraintLayout rootLayout = (ConstraintLayout) findViewById(R.id.rootLayout);
         mOutputString = (EditText) findViewById(R.id.inputView);
         mOutputString.setInputType(InputType.TYPE_NULL);
