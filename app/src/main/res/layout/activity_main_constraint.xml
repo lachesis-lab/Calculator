@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
 
     android:background="@drawable/notebook11">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/inputScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:padding="10dp"
-        android:textSize="42sp"
-
-        app:layout_constraintBottom_toTopOf="@id/gLineH1"
+        android:orientation="horizontal"
+        app:layout_constraintVertical_weight="66"
+        app:layout_constraintBottom_toTopOf="@id/resultView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"        >
+        <EditText
+            android:id="@+id/inputView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:padding="10dp"
+            android:textSize="32sp" />
+    </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:id="@+id/resultView"
+        app:layout_constraintVertical_weight="40"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/inputScroll"
+        app:layout_constraintBottom_toTopOf="@id/gLineH1"
+        />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH1"
         android:layout_width="match_parent"
@@ -75,14 +88,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.75" />
+    <!--
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/symbol_constraint_style"
-        app:layout_constraintBottom_toBottomOf="@id/gLineH2"
-        app:layout_constraintEnd_toEndOf="@id/gLineV3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gLineH1" />
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/symbol_constraint_style"
+            app:layout_constraintBottom_toBottomOf="@id/gLineH2"
+            app:layout_constraintEnd_toEndOf="@id/gLineV3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/gLineH1" />
+    -->
 
     <Button
         android:id="@+id/buttonPlusMinus"
