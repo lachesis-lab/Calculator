@@ -1,10 +1,42 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name ="row_style">
+        <item name ="android:layout_width">match_parent</item>
+        <item name ="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+    <style name ="button_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/colorWhile</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+    <style name ="symbol_style" parent="button_style">
+        <item name="android:background">@color/colorDarkGrey</item>
+    </style>
+    <style name ="button_constraint_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@color/colorWhile</item>
+        <item name="android:textSize">36sp </item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+    <style name ="symbol_constraint_style" parent="button_constraint_style">
+        <item name="android:background">@color/colorDarkGrey</item>
+    </style>
+
 
 </resources>
