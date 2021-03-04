@@ -20,5 +20,9 @@
     <string name="buttonTextPlusMinus">\u00B1</string>
     <string name="buttonLeftBracket">(</string>
     <string name="buttonRightBracket">)</string>
+    <string name="excDiv0">Деление на 0 запрещено</string>
+    <string name="exc">Неопознанная ошибка</string>
+    <string name="infinite">Ошибка переполнения</string>
+    <string name="wrongInput">Неправильный ввод</string>
 
 </resources>
