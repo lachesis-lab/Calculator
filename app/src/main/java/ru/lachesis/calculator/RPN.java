@@ -1,0 +1,187 @@
+package ru.lachesis.calculator;
+
+import android.content.Context;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RPN {
+
+    private List<String> mOutputList = new ArrayList<>();
+    private List<String> mOperationStack = new ArrayList<>();
+    private String mOperationPlus, mOperationMinus, mOperationMultiply, mOperationDivide, mOperationNegative;
+
+
+    private static class Top {
+        private int mIndex;
+        private String mValue;
+
+        private Top(int index, String value) {
+            mIndex = index;
+            mValue = value;
+        }
+    }
+
+    public RPN(Context context) {
+        mOperationPlus = context.getString(R.string.buttonTextPlus);
+        mOperationMinus = context.getString(R.string.buttonTextMinus);
+        mOperationMultiply = context.getString(R.string.buttonTextMultiply);
+        mOperationDivide = context.getString(R.string.buttonTextDivide);
+        mOperationNegative = context.getString(R.string.buttonTextPlusMinus);
+    }
+
+    public List<String> makeRPN(List<String> inputList) {
+        List<String> result = new ArrayList<>();
+        for (String symbol : inputList) {
+            result = addSymbol(symbol);
+        }
+        return result;
+    }
+
+    private List<String> addSymbol(String symbol) {
+        Top top = getStackTop();
+//        if (isDigit(symbol) || isPoint(symbol)) {
+//            mCurrentNumber.append(symbol);
+//        } else {
+//            if (!"(".contains(symbol) && mCurrentNumber.length() != 0)
+//                mOutputList.add(mCurrentNumber.toString());
+        try {
+            Double.parseDouble(symbol);
+            mOutputList.add(symbol);
+        } catch (Exception e) {
+            if (getPriority(symbol) > 0 || "=".equals(symbol)) {
+                //операции
+                while (top != null && getPriority(symbol) <= getPriority(top.mValue)) {
+                    if (isBrackets(top.mValue))
+                        break;
+                    mOutputList.add(top.mValue);
+                    top = removeStackTop(top);
+                }
+                top = addStackTop(top, symbol);
+            } else if (symbol.equals(")")) {
+                while (top != null) {
+                    if (top.mValue.equals("(")) {
+                        top = removeStackTop(top);
+                        break;
+                    } else {
+                        mOutputList.add(top.mValue);
+                        top = removeStackTop(top);
+                    }
+                }
+            } else if (top != null)
+                addStackTop(top, symbol);
+//            mCurrentNumber.setLength(0);
+        }
+        return mOutputList;
+    }
+
+    private Top removeStackTop(Top top) {
+        try {
+            mOperationStack.remove(mOperationStack.size() - 1);
+            top.mIndex = mOperationStack.size() - 1;
+            top.mValue = mOperationStack.get(mOperationStack.size() - 1);
+            if (top.mIndex < 0) return null;
+            else return top;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private Top addStackTop(Top top, String symbol) {
+        try {
+            mOperationStack.add(symbol);
+            top.mIndex = mOperationStack.size() - 1;
+            top.mValue = mOperationStack.get(mOperationStack.size() - 1);
+            return top;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private Top getStackTop() {
+        if (mOperationStack.size() == 0) return null;
+        else {
+            return new Top(mOperationStack.size() - 1, mOperationStack.get(mOperationStack.size() - 1));
+        }
+    }
+
+/*
+    public void clearStacks() {
+        mOperationStack.clear();
+        mOutputList.clear();
+//        mCurrentNumber.setLength(0);
+    }
+*/
+/*
+    private boolean isDigit(String symbol) {
+        return "0123456789".contains(symbol);
+    }
+
+    private boolean isPoint(String symbol) {
+        return ".".equals(symbol);
+    }*/
+
+    private boolean isBrackets(String symbol) {
+        return "()".contains(symbol);
+    }
+
+    private int getPriority(String symbol) {
+        if (mOperationNegative.equals(symbol))
+            return 3;
+        if (mOperationMultiply.equals(symbol) || mOperationDivide.equals(symbol))
+            return 2;
+        else if (mOperationMinus.equals(symbol) || mOperationPlus.equals(symbol))
+            return 1;
+        else return 0;
+    }
+
+    public Double calculateRPN() throws RuntimeException {
+        Double result = 0D;
+        boolean isMyException = false;
+        List<Double> stack = new ArrayList<>();
+        for (int i = 0; i < mOutputList.size(); i++) {
+            String value = mOutputList.get(i);
+            try {
+                stack.add(Double.parseDouble(value));
+            } catch (Exception e) {
+                try {
+                    if (value.equals(mOperationPlus)) {
+                        result = stack.get(stack.size() - 2) + stack.get(stack.size() - 1);
+                        afterBinaryOperation(stack, result);
+                    } else if (value.equals(mOperationMinus)) {
+                        result = stack.get(stack.size() - 2) - stack.get(stack.size() - 1);
+                        afterBinaryOperation(stack, result);
+                    } else if (value.equals(mOperationMultiply)) {
+                        result = stack.get(stack.size() - 2) * stack.get(stack.size() - 1);
+                        afterBinaryOperation(stack, result);
+                    } else if (value.equals(mOperationDivide)) {
+                        if (stack.get(stack.size() - 1) == 0) {
+                            isMyException = true;
+                            throw new RuntimeException("Div0");
+                        }
+                        result = stack.get(stack.size() - 2) / stack.get(stack.size() - 1);
+                        afterBinaryOperation(stack, result);
+                    } else if (value.equals(mOperationNegative)) {
+                        result = -1 * stack.get(stack.size() - 1);
+                        afterUnaryOperation(stack, result);
+                    }
+                } catch (RuntimeException ie) {
+                    throw new RuntimeException(!isMyException ? "WrongInput" : ie.getMessage());
+                }
+            }
+        }
+        Log.i("RESULT", result.toString());
+        if (Double.isInfinite(result)) throw new ArithmeticException("Infinite");
+        return result;
+    }
+
+    private void afterBinaryOperation(List<Double> stack, Double result) {
+        stack.remove(stack.size() - 1);
+        stack.set(stack.size() - 1, result);
+    }
+
+    private void afterUnaryOperation(List<Double> stack, Double result) {
+        stack.set(stack.size() - 1, result);
+    }
+}

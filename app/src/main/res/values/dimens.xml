@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_padding">10dp</dimen>
+    <dimen name="input_text_size">36sp</dimen>
+    <dimen name="result_text_size">32sp</dimen>
+    <dimen name="button_text_size">32dp</dimen>
+    <dimen name="button_width">0dp</dimen>
+    <dimen name="button_height">0dp</dimen>
+    <dimen name="button_margin">1dp</dimen>
+    <dimen name="button_inset">0dp</dimen>
+</resources>

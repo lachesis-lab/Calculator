@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
+
     android:backgroundTintMode="multiply"
     android:backgroundTint="?attr/colorSurface"
-    android:background="@drawable/notebook11">
-    <!--    android:backgroundTint="@color/design_default_color_secondary_variant"-->
+    android:background="@drawable/notebook11"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/inputScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintVertical_weight="66"
         app:layout_constraintBottom_toTopOf="@id/resultView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"        >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="66">
+
         <EditText
             android:id="@+id/inputView"
             android:layout_width="match_parent"
@@ -27,58 +30,58 @@
             android:padding="@dimen/input_padding"
             android:textSize="@dimen/input_text_size" />
     </androidx.core.widget.NestedScrollView>
+
     <TextView
         android:id="@+id/resultView"
-        app:layout_constraintVertical_weight="40"
-        android:layout_height="0dp"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:gravity="end"
         android:textSize="@dimen/result_text_size"
-        app:layout_constraintTop_toBottomOf="@id/inputScroll"
         app:layout_constraintBottom_toTopOf="@id/gLineH1"
-        />
+        app:layout_constraintTop_toBottomOf="@id/inputScroll"
+        app:layout_constraintVertical_weight="40" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34" />
+        app:layout_constraintGuide_percent="0.38" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.51" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.76" />
+        app:layout_constraintGuide_percent="0.77" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineV1"
@@ -297,10 +300,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/day_night_switch"
+        app:switchTextAppearance="@string/day_night_switch"
         app:layout_constraintTop_toTopOf="@id/gLineH6"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="50dp"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
