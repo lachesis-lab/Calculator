@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
-
+    android:backgroundTintMode="multiply"
+    android:backgroundTint="?attr/colorSurface"
     android:background="@drawable/notebook11">
+    <!--    android:backgroundTint="@color/design_default_color_secondary_variant"-->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/inputScroll"
@@ -21,54 +23,62 @@
             android:id="@+id/inputView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right"
-            android:padding="10dp"
-            android:textSize="36sp" />
+            android:gravity="end"
+            android:padding="@dimen/input_padding"
+            android:textSize="@dimen/input_text_size" />
     </androidx.core.widget.NestedScrollView>
     <TextView
         android:id="@+id/resultView"
         app:layout_constraintVertical_weight="40"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:gravity="right"
-        android:textSize="24sp"
+        android:gravity="end"
+        android:textSize="@dimen/result_text_size"
         app:layout_constraintTop_toBottomOf="@id/inputScroll"
         app:layout_constraintBottom_toTopOf="@id/gLineH1"
         />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.36" />
+        app:layout_constraintGuide_percent="0.34" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.48" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.68" />
+        app:layout_constraintGuide_percent="0.62" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineH5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.84" />
+        app:layout_constraintGuide_percent="0.76" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLineH6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineV1"
@@ -101,7 +111,7 @@
             app:layout_constraintTop_toTopOf="@id/gLineH1" />
     -->
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonPlusMinus"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextPlusMinus"
@@ -110,7 +120,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV2"
         app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonRightBracket"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonRightBracket"
@@ -119,7 +129,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV1"
         app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLeftBracket"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonLeftBracket"
@@ -128,7 +138,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonDel"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextDel"
@@ -138,7 +148,7 @@
         app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button7"
         style="@style/button_constraint_style"
         android:text="@string/buttonText7"
@@ -147,7 +157,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gLineH2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button8"
         style="@style/button_constraint_style"
         android:text="@string/buttonText8"
@@ -156,7 +166,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV1"
         app:layout_constraintTop_toTopOf="@id/gLineH2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button9"
         style="@style/button_constraint_style"
         android:text="@string/buttonText9"
@@ -165,7 +175,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV2"
         app:layout_constraintTop_toTopOf="@id/gLineH2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonDivide"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextDivide"
@@ -174,7 +184,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV3"
         app:layout_constraintTop_toTopOf="@id/gLineH2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button4"
         style="@style/button_constraint_style"
         android:text="@string/buttonText4"
@@ -183,7 +193,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gLineH3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button5"
         style="@style/button_constraint_style"
         android:text="@string/buttonText5"
@@ -192,7 +202,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV1"
         app:layout_constraintTop_toTopOf="@id/gLineH3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button6"
         style="@style/button_constraint_style"
         android:text="@string/buttonText6"
@@ -201,7 +211,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV2"
         app:layout_constraintTop_toTopOf="@id/gLineH3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonMultiply"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextMultiply"
@@ -210,7 +220,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV3"
         app:layout_constraintTop_toTopOf="@id/gLineH3" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button1"
         style="@style/button_constraint_style"
         android:text="@string/buttonText1"
@@ -219,7 +229,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gLineH4" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button2"
         style="@style/button_constraint_style"
         android:text="@string/buttonText2"
@@ -228,7 +238,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV1"
         app:layout_constraintTop_toTopOf="@id/gLineH4" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button3"
         style="@style/button_constraint_style"
         android:text="@string/buttonText3"
@@ -237,7 +247,7 @@
         app:layout_constraintStart_toStartOf="@id/gLineV2"
         app:layout_constraintTop_toTopOf="@id/gLineH4" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonMinus"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextMinus"
@@ -246,40 +256,51 @@
         app:layout_constraintStart_toStartOf="@id/gLineV3"
         app:layout_constraintTop_toTopOf="@id/gLineH4" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonPt"
         style="@style/button_constraint_style"
         android:text="@string/buttonTextPt"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH6"
         app:layout_constraintEnd_toEndOf="@id/gLineV1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gLineH5" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button0"
         style="@style/button_constraint_style"
         android:text="@string/buttonText0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH6"
         app:layout_constraintEnd_toEndOf="@id/gLineV2"
         app:layout_constraintStart_toStartOf="@id/gLineV1"
         app:layout_constraintTop_toTopOf="@id/gLineH5" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonEqual"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextEqual"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH6"
         app:layout_constraintEnd_toEndOf="@id/gLineV3"
         app:layout_constraintStart_toStartOf="@id/gLineV2"
         app:layout_constraintTop_toTopOf="@id/gLineH5" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonPlus"
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextPlus"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
         app:layout_constraintTop_toTopOf="@id/gLineH5" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/DayNightSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/day_night_switch"
+        app:layout_constraintTop_toTopOf="@id/gLineH6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="50dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

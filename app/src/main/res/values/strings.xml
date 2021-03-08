@@ -24,5 +24,6 @@
     <string name="exc">Неопознанная ошибка</string>
     <string name="infinite">Ошибка переполнения</string>
     <string name="wrongInput">Неправильный ввод</string>
+    <string name="day_night_switch">день/ночь</string>
 
 </resources>

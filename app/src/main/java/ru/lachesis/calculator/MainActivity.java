@@ -2,12 +2,18 @@ package ru.lachesis.calculator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,6 +23,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     //    private final static String TRACE_TAG = "Trace";
+    private static final String prefs = "prefs.xml";
+    private static final String pref_name = "theme";
     private final static String PARCEL_KEY = "rpnCalculator";
     private final static String DEL = "DEL";
     private EditText mOutputString;
@@ -28,8 +36,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
+        boolean isNight = getSharedPreferences(prefs, MODE_PRIVATE).getBoolean(pref_name, false);
+        SwitchMaterial dayNightSwitch =
+                findViewById(R.id.DayNightSwitch);
+        dayNightSwitch.setChecked(isNight);
+        switchTheme(dayNightSwitch);
+        dayNightSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            getSharedPreferences(prefs, MODE_PRIVATE).edit().putBoolean(pref_name, dayNightSwitch.isChecked()).commit();
+            switchTheme(dayNightSwitch);
+
+        });
         ConstraintLayout rootLayout = findViewById(R.id.rootLayout);
         mOutputString = findViewById(R.id.inputView);
         mOutputString.setInputType(InputType.TYPE_NULL);
@@ -38,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         rpnWrapper = new RPNWrapper(this);
         for (int i = 0; i < rootLayout.getChildCount(); i++) {
             View element = rootLayout.getChildAt(i);
-            if (element instanceof Button) {
+            if (element instanceof MaterialButton) {
                 if (element.getId() == R.id.buttonDel) {
                     element.setOnLongClickListener(b -> clear());
                     element.setOnClickListener(b -> clearLastElement());
@@ -46,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 } else
                     element.setOnClickListener(b -> setAction(b));
             }
+        }
+    }
+
+    private void switchTheme(SwitchMaterial dayNightSwitch) {
+        if (dayNightSwitch.isChecked()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 
@@ -58,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 */
 
     private void clearLastElement() {
-        if (mOutList.size()>0)
+        if (mOutList.size() > 0)
             mOutList.remove(mOutList.size() - 1);
         buildOutputString(DEL);
         rpnWrapper.buildRPNString(mOutList);
@@ -159,10 +185,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
- /*   private boolean isDigit(String symbol) {
-        return "0123456789".contains(symbol);
-    }
-*/
+    /*   private boolean isDigit(String symbol) {
+           return "0123456789".contains(symbol);
+       }
+   */
     private boolean isPoint(String symbol) {
         return getText(R.string.buttonTextPt).equals(symbol);
     }
