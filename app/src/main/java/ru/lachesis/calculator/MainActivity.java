@@ -1,19 +1,18 @@
 package ru.lachesis.calculator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.radiobutton.MaterialRadioButton;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,6 +22,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     //    private final static String TRACE_TAG = "Trace";
+    public static final int CODE_THEME = 1;
+    public static final String KEY_THEME = "my.extra.keys.isNight";
     private static final String prefs = "prefs.xml";
     private static final String pref_name = "theme";
     private final static String PARCEL_KEY = "rpnCalculator";
@@ -38,16 +39,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        boolean isNight = getSharedPreferences(prefs, MODE_PRIVATE).getBoolean(pref_name, false);
-        SwitchMaterial dayNightSwitch =
-                findViewById(R.id.DayNightSwitch);
-        dayNightSwitch.setChecked(isNight);
-        switchTheme(dayNightSwitch);
-        dayNightSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-            getSharedPreferences(prefs, MODE_PRIVATE).edit().putBoolean(pref_name, dayNightSwitch.isChecked()).commit();
-            switchTheme(dayNightSwitch);
+        Intent intent = new Intent(this, SettingsActivity.class);
 
-        });
+        boolean isNight = getSharedPreferences(prefs, MODE_PRIVATE).getBoolean(pref_name, false);
+        switchTheme(isNight);
+        intent.putExtra(KEY_THEME, isNight);
         ConstraintLayout rootLayout = findViewById(R.id.rootLayout);
         mOutputString = findViewById(R.id.inputView);
         mOutputString.setInputType(InputType.TYPE_NULL);
@@ -61,18 +57,33 @@ public class MainActivity extends AppCompatActivity {
                     element.setOnLongClickListener(b -> clear());
                     element.setOnClickListener(b -> clearLastElement());
 //                } else if (element.getId() == R.id.buttonEqual) { element.setOnClickListener(b->calculate());
+                } else if (element.getId() == R.id.settingsButton) {
+                    element.setOnClickListener(b -> {
+                        startActivityForResult(intent, CODE_THEME);
+                    });
                 } else
                     element.setOnClickListener(b -> setAction(b));
             }
         }
     }
 
-    private void switchTheme(SwitchMaterial dayNightSwitch) {
-        if (dayNightSwitch.isChecked()) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == RESULT_OK) {
+            boolean isNight = data.getBooleanExtra(KEY_THEME, false);
+            getSharedPreferences(prefs, MODE_PRIVATE).edit().putBoolean(pref_name, isNight).apply();
+            recreate();
+        }
+    }
+
+    public static void switchTheme(boolean isChecked) {
+        if (isChecked) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
     }
 
 /*
