@@ -49,9 +49,10 @@ public class RPNWrapper implements Parcelable {
 
 
     public Double calculate() {
-        if (rpn == null) return 0D;
-        else
-            return rpn.calculateRPN();
+        Double result = 0D;
+        if (rpn != null)
+            result = rpn.calculateRPN();
+        return result;
     }
 
     @Override

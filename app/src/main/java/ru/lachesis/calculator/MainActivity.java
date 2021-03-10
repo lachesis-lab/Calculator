@@ -11,13 +11,16 @@ import com.google.android.material.button.MaterialButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String prefs = "prefs.xml";
     private static final String pref_name = "theme";
     private final static String PARCEL_KEY = "rpnCalculator";
-    private final static String DEL = "DEL";
     private EditText mOutputString;
     private TextView mResultString;
     StringBuilder mCurrentNumber = new StringBuilder();
@@ -37,19 +39,40 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         Intent intent = new Intent(this, SettingsActivity.class);
 
         boolean isNight = getSharedPreferences(prefs, MODE_PRIVATE).getBoolean(pref_name, false);
         switchTheme(isNight);
         intent.putExtra(KEY_THEME, isNight);
+
         ConstraintLayout rootLayout = findViewById(R.id.rootLayout);
         mOutputString = findViewById(R.id.inputView);
         mOutputString.setInputType(InputType.TYPE_NULL);
         mResultString = findViewById(R.id.resultView);
 
+        catchOuterIntent();
+
         rpnWrapper = new RPNWrapper(this);
+
+        setListeners(intent, rootLayout);
+    }
+
+    private void catchOuterIntent() {
+        Intent outIntent = getIntent();
+        Bundle bundle = outIntent.getExtras();
+        if (bundle != null) {
+            Log.e("INPUT", bundle.getString("inputString", ""));
+            String s = bundle.getString("inputString", "");
+//            mOutputString.setText(s);
+            s = s.replace("-", "\u2212");
+            buildOutputFromString(s);
+            buildOutputStringFromOutList();
+        }
+    }
+
+    private void setListeners(Intent intent, ConstraintLayout rootLayout) {
         for (int i = 0; i < rootLayout.getChildCount(); i++) {
             View element = rootLayout.getChildAt(i);
             if (element instanceof MaterialButton) {
@@ -86,52 +109,92 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-/*
-    private void calculate() {
-        buildOutputString(getText(R.string.buttonTextEqual).toString());
+    private void calculate(String str) {
+        buildOutputFromString(str);
+        buildOutputStringFromOutList();
         rpnWrapper.buildRPNString(mOutList);
-        getResult();
-    }
-*/
-
-    private void clearLastElement() {
-        if (mOutList.size() > 0)
-            mOutList.remove(mOutList.size() - 1);
-        buildOutputString(DEL);
-        rpnWrapper.buildRPNString(mOutList);
-        getResult();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle instanceState) {
-        super.onRestoreInstanceState(instanceState);
-        rpnWrapper = instanceState.getParcelable(PARCEL_KEY);
         mResultString.setText(getResult());
-        mOutList = rpnWrapper.getInputList();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle instanceState) {
-        super.onSaveInstanceState(instanceState);
-        instanceState.putParcelable(PARCEL_KEY, rpnWrapper);
-    }
 
     private boolean clear() {
         mOutputString.setText("");
         mResultString.setText("");
         mOutList.clear();
-        rpnWrapper.clearStacks();
+        if (rpnWrapper != null)
+            rpnWrapper.clearStacks();
+        mCurrentNumber.setLength(0);
         return true;
+    }
+
+    private void clearLastElement() {
+        String text = mOutputString.getText().toString();
+        if (text.length() > 0) {
+            text = text.substring(0, text.length() - 1);
+//            mOutputString.setText(text);
+        }
+
+        calculate(text);
     }
 
     private void setAction(View b) {
         Button button = (Button) b;
         String symbol = (String) button.getText();
         buildOutputString(symbol);
-        rpnWrapper.buildRPNString(mOutList);
-        mResultString.setText(getResult());
+        calculate(mOutputString.getText().toString());
+
     }
 
+    private void buildOutputStringFromOutList() {
+        mOutputString.setText("");
+        for (String s : mOutList)
+            if (!s.contentEquals(getText(R.string.buttonTextEqual)))
+                mOutputString.append(s);
+            else mOutList.add(s);
+    }
+
+    private void buildOutputFromString(String str) {
+        clear();
+        for (int i = 0; i < str.length(); i++) {
+            String s = str.substring(i, i + 1);
+            buildOutList(s);
+        }
+    }
+
+    private void buildOutputString(String symbol) {
+        mOutputString.append(symbol);
+    }
+
+    private void buildOutList(String symbol) {
+        Double number;
+        if (isNumber(symbol) || isPoint(symbol)) {
+            mCurrentNumber.append(symbol);
+            String lastElement = mOutList.size() != 0 ? mOutList.get(mOutList.size() - 1) : null;
+            if (mOutList.size() == 0 || !isNumber(lastElement))
+                mOutList.add(mCurrentNumber.toString());
+            else mOutList.set(mOutList.size() - 1, mCurrentNumber.toString());
+            return;
+        } else {
+            if (!getText(R.string.buttonLeftBracket).equals(symbol)) {
+                mCurrentNumber.setLength(0);
+            }
+            if (symbol.contentEquals(getText(R.string.buttonTextPlusMinus))) {
+                try {
+                    if (mOutList.size() > 0) {
+                        number = -1 * Double.parseDouble(mOutList.get(mOutList.size() - 1));
+                        mOutList.set(mOutList.size() - 1, number.toString());
+                    } else
+                        mOutList.add(symbol);
+                } catch (NumberFormatException e) {
+                } finally {
+                    getResult();
+                }
+            } else mOutList.add(symbol);
+
+        }
+    }
+
+/*
     private void buildOutputString(String symbol) {
         Double number;
         if (isNumber(symbol) || isPoint(symbol)) {
@@ -158,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 } finally {
                     getResult();
                 }
-            } else if (!DEL.equals(symbol))//&&!getText(R.string.buttonTextEqual).equals(symbol))
+            } else //if (!DEL.equals(symbol))//&&!getText(R.string.buttonTextEqual).equals(symbol))
                 mOutList.add(symbol);
             mOutputString.setText("");
             for (String s : mOutList)
@@ -166,9 +229,13 @@ public class MainActivity extends AppCompatActivity {
                     mOutputString.append(s);
         }
     }
+*/
 
     private boolean isNumber(String str) {
         boolean isNumber;
+        if (isPoint(str)) return true;//str = "0.";
+        if ("-".equals(str)) return true;
+        // if (getText(R.string.buttonTextPlusMinus).equals(str)) return true;
         try {
             Double.parseDouble(str);
             isNumber = true;
@@ -180,7 +247,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String getResult() {
         try {
-            return rpnWrapper.calculate().toString();
+            Double result = rpnWrapper.calculate();
+            String format = "%." + BigDecimal.valueOf(result).scale() + "f\n";
+            return String.format(Locale.getDefault(), format, rpnWrapper.calculate());
         } catch (RuntimeException e) {
             if (e.getMessage() != null) {
                 switch (e.getMessage()) {
@@ -196,12 +265,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*   private boolean isDigit(String symbol) {
-           return "0123456789".contains(symbol);
-       }
-   */
+
     private boolean isPoint(String symbol) {
         return getText(R.string.buttonTextPt).equals(symbol);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle instanceState) {
+        super.onRestoreInstanceState(instanceState);
+        rpnWrapper = instanceState.getParcelable(PARCEL_KEY);
+        mResultString.setText(getResult());
+        mOutList = rpnWrapper.getInputList();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle instanceState) {
+        super.onSaveInstanceState(instanceState);
+        instanceState.putParcelable(PARCEL_KEY, rpnWrapper);
     }
 
 

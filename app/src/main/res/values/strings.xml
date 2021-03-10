@@ -13,8 +13,10 @@
     <string name="buttonTextPt">.</string>
     <string name="buttonTextPlus">+</string>
     <string name="buttonTextMinus">\u2212</string>
-    <string name="buttonTextMultiply">\u00D7</string>
-    <string name="buttonTextDivide">\u00F7</string>
+<!--    <string name="buttonTextMultiply">\u00D7</string>-->
+<!--    <string name="buttonTextDivide">\u00F7</string>-->
+    <string name="buttonTextMultiply">*</string>
+    <string name="buttonTextDivide">/</string>
     <string name="buttonTextEqual">=</string>
     <string name="buttonTextDel">C</string>
     <string name="buttonTextPlusMinus">\u00B1</string>

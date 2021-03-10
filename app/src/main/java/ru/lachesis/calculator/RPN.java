@@ -8,9 +8,13 @@ import java.util.List;
 
 public class RPN {
 
-    private List<String> mOutputList = new ArrayList<>();
-    private List<String> mOperationStack = new ArrayList<>();
-    private String mOperationPlus, mOperationMinus, mOperationMultiply, mOperationDivide, mOperationNegative;
+    private final List<String> mOutputList = new ArrayList<>();
+    private final List<String> mOperationStack = new ArrayList<>();
+    private final String mOperationPlus;
+    private final String mOperationMinus;
+    private final String mOperationMultiply;
+    private final String mOperationDivide;
+    private final String mOperationNegative;
 
 
     private static class Top {
@@ -106,21 +110,6 @@ public class RPN {
         }
     }
 
-/*
-    public void clearStacks() {
-        mOperationStack.clear();
-        mOutputList.clear();
-//        mCurrentNumber.setLength(0);
-    }
-*/
-/*
-    private boolean isDigit(String symbol) {
-        return "0123456789".contains(symbol);
-    }
-
-    private boolean isPoint(String symbol) {
-        return ".".equals(symbol);
-    }*/
 
     private boolean isBrackets(String symbol) {
         return "()".contains(symbol);
@@ -136,7 +125,7 @@ public class RPN {
         else return 0;
     }
 
-    public Double calculateRPN() throws RuntimeException {
+    public strictfp Double calculateRPN() throws RuntimeException {
         Double result = 0D;
         boolean isMyException = false;
         List<Double> stack = new ArrayList<>();
