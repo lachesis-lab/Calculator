@@ -1,4 +1,4 @@
-package ru.lachesis.calculator;
+package ru.lachesis.testapplication;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("ru.lachesis.calculator", appContext.getPackageName());
+        assertEquals("ru.lachesis.testapplication", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package ru.lachesis.calculator;
+package ru.lachesis.testapplication;
 
 import org.junit.Test;
 
