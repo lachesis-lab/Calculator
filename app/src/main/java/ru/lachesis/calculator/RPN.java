@@ -15,6 +15,7 @@ public class RPN {
     private final String mOperationMultiply;
     private final String mOperationDivide;
     private final String mOperationNegative;
+    private final String mOperationEquals;
 
 
     private static class Top {
@@ -33,6 +34,7 @@ public class RPN {
         mOperationMultiply = context.getString(R.string.buttonTextMultiply);
         mOperationDivide = context.getString(R.string.buttonTextDivide);
         mOperationNegative = context.getString(R.string.buttonTextPlusMinus);
+        mOperationEquals = context.getString(R.string.buttonTextEqual);
     }
 
     public List<String> makeRPN(List<String> inputList) {
@@ -45,11 +47,6 @@ public class RPN {
 
     private List<String> addSymbol(String symbol) {
         Top top = getStackTop();
-//        if (isDigit(symbol) || isPoint(symbol)) {
-//            mCurrentNumber.append(symbol);
-//        } else {
-//            if (!"(".contains(symbol) && mCurrentNumber.length() != 0)
-//                mOutputList.add(mCurrentNumber.toString());
         try {
             Double.parseDouble(symbol);
             mOutputList.add(symbol);
@@ -133,6 +130,8 @@ public class RPN {
             String value = mOutputList.get(i);
             try {
                 stack.add(Double.parseDouble(value));
+//                mOutputList.add(mOperationEquals);
+                result = stack.get(stack.size() - 1);
             } catch (Exception e) {
                 try {
                     if (value.equals(mOperationPlus)) {
@@ -154,6 +153,8 @@ public class RPN {
                     } else if (value.equals(mOperationNegative)) {
                         result = -1 * stack.get(stack.size() - 1);
                         afterUnaryOperation(stack, result);
+//                    } else if (value.equals(mOperationEquals)) {
+//                        result = stack.get(stack.size()-1);
                     }
                 } catch (RuntimeException ie) {
                     throw new RuntimeException(!isMyException ? "WrongInput" : ie.getMessage());
