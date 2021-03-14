@@ -132,7 +132,9 @@ public class RPNWrapper implements Parcelable {
             if (!mContext.getText(R.string.buttonLeftBracket).equals(symbol)) {
                 mCurrentNumber.setLength(0);
             }
-            if (symbol.contentEquals(mContext.getText(R.string.buttonTextPlusMinus))) {
+            if (symbol.contentEquals(mContext.getText(R.string.buttonTextE))) {
+                mOutList.add(String.valueOf(Math.E));
+            } else  if (symbol.contentEquals(mContext.getText(R.string.buttonTextPlusMinus))) {
                 try {
                     if (mOutList.size() > 0) {
                         number = -1 * Double.parseDouble(mOutList.get(mOutList.size() - 1));

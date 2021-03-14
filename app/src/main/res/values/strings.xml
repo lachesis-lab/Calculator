@@ -29,5 +29,12 @@
     <string name="day_night_switch">день/ночь</string>
     <string name="settings_button_text">Настройки</string>
     <string name="save_settings_button_text">Сохранить</string>
+    <string name="hintToOuterCall">Нажмите \"=\"</string>
+    <string name="buttonTextPrc">%</string>
+    <string name="buttonTextDeg">^</string>
+    <string name="buttonTextSqrt">√</string>
+    <string name="buttonTextLn">\u33D1</string>
+    <string name="buttonTextLog">\u33D2</string>
+    <string name="buttonTextE">e</string>
 
 </resources>

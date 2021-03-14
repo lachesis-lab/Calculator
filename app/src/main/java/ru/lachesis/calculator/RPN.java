@@ -16,6 +16,11 @@ public class RPN {
     private final String mOperationDivide;
     private final String mOperationNegative;
     private final String mOperationEquals;
+    private final String mOperationPrc;
+    private final String mOperationDegree;
+    private final String mOperationSqrt;
+    private final String mOperationLn;
+    private final String mOperationLog;
 
 
     private static class Top {
@@ -35,6 +40,11 @@ public class RPN {
         mOperationDivide = context.getString(R.string.buttonTextDivide);
         mOperationNegative = context.getString(R.string.buttonTextPlusMinus);
         mOperationEquals = context.getString(R.string.buttonTextEqual);
+        mOperationPrc = context.getString(R.string.buttonTextPrc);
+        mOperationSqrt = context.getString(R.string.buttonTextSqrt);
+        mOperationDegree = context.getString(R.string.buttonTextDeg);
+        mOperationLn = context.getString(R.string.buttonTextLn);
+        mOperationLog = context.getString(R.string.buttonTextLog);
     }
 
     public List<String> makeRPN(List<String> inputList) {
@@ -113,9 +123,13 @@ public class RPN {
     }
 
     private int getPriority(String symbol) {
-        if (mOperationNegative.equals(symbol))
+        if ( mOperationLn.equals(symbol) || mOperationPrc.equals(symbol) || mOperationLog.equals(symbol) || mOperationSqrt.equals(symbol))
+            return 5;
+        else if (mOperationDegree.equals(symbol))
+            return 4;
+        else if (mOperationNegative.equals(symbol) )
             return 3;
-        if (mOperationMultiply.equals(symbol) || mOperationDivide.equals(symbol))
+        else if (mOperationMultiply.equals(symbol) || mOperationDivide.equals(symbol))
             return 2;
         else if (mOperationMinus.equals(symbol) || mOperationPlus.equals(symbol))
             return 1;
@@ -153,8 +167,22 @@ public class RPN {
                     } else if (value.equals(mOperationNegative)) {
                         result = -1 * stack.get(stack.size() - 1);
                         afterUnaryOperation(stack, result);
-//                    } else if (value.equals(mOperationEquals)) {
-//                        result = stack.get(stack.size()-1);
+                    } else if (value.equals(mOperationSqrt)) {
+                        result = Math.sqrt(stack.get(stack.size() - 1));
+                        afterUnaryOperation(stack, result);
+                    } else if (value.equals(mOperationDegree)) {
+                        result = Math.pow(stack.get(stack.size() - 2), stack.get(stack.size() - 1));
+                        afterBinaryOperation(stack, result);
+                    } else if (value.equals(mOperationLn)) {
+                        result = Math.log(stack.get(stack.size() - 1));
+                        afterUnaryOperation(stack, result);
+                    } else if (value.equals(mOperationLog)) {
+                        result = Math.log10(stack.get(stack.size() - 1));
+                        afterUnaryOperation(stack, result);
+                    }
+                    if (value.equals(mOperationPrc)) {
+                        result = stack.get(stack.size() - 1) * stack.get(stack.size() - 2) / 100;
+                        afterBinaryOperation(stack, result);
                     }
                 } catch (RuntimeException ie) {
                     throw new RuntimeException(!isMyException ? "WrongInput" : ie.getMessage());

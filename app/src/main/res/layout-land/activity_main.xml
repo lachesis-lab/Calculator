@@ -88,21 +88,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineV2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gLineV3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLineV4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
     <!--
 
         <TextView
@@ -146,10 +153,18 @@
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextDel"
         app:layout_constraintBottom_toBottomOf="@id/gLineH2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gLineV4"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
         app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonE"
+        style="@style/symbol_constraint_style"
+        android:text="@string/buttonTextE"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gLineV4"
+        app:layout_constraintTop_toTopOf="@id/gLineH1" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button7"
@@ -183,8 +198,17 @@
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextDivide"
         app:layout_constraintBottom_toBottomOf="@id/gLineH3"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gLineV4"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
+        app:layout_constraintTop_toTopOf="@id/gLineH2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonDeg"
+        style="@style/symbol_constraint_style"
+        android:text="@string/buttonTextDeg"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gLineV4"
         app:layout_constraintTop_toTopOf="@id/gLineH2" />
 
     <com.google.android.material.button.MaterialButton
@@ -219,8 +243,17 @@
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextMultiply"
         app:layout_constraintBottom_toBottomOf="@id/gLineH4"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gLineV4"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
+        app:layout_constraintTop_toTopOf="@id/gLineH3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSqrt"
+        style="@style/symbol_constraint_style"
+        android:text="@string/buttonTextSqrt"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gLineV4"
         app:layout_constraintTop_toTopOf="@id/gLineH3" />
 
     <com.google.android.material.button.MaterialButton
@@ -255,8 +288,17 @@
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextMinus"
         app:layout_constraintBottom_toBottomOf="@id/gLineH5"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gLineV4"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
+        app:layout_constraintTop_toTopOf="@id/gLineH4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonLn"
+        style="@style/symbol_constraint_style"
+        android:text="@string/buttonTextLn"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gLineV4"
         app:layout_constraintTop_toTopOf="@id/gLineH4" />
 
     <com.google.android.material.button.MaterialButton
@@ -291,8 +333,17 @@
         style="@style/symbol_constraint_style"
         android:text="@string/buttonTextPlus"
         app:layout_constraintBottom_toBottomOf="@id/gLineH6"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gLineV4"
         app:layout_constraintStart_toStartOf="@id/gLineV3"
+        app:layout_constraintTop_toTopOf="@id/gLineH5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonLog"
+        style="@style/symbol_constraint_style"
+        android:text="@string/buttonTextLog"
+        app:layout_constraintBottom_toBottomOf="@id/gLineH6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gLineV4"
         app:layout_constraintTop_toTopOf="@id/gLineH5" />
 
     <com.google.android.material.button.MaterialButton

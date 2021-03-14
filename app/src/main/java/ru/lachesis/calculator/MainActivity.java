@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, SettingsActivity.class);
-
         boolean isNight = getSharedPreferences(prefs, MODE_PRIVATE).getBoolean(pref_name, false);
         switchTheme(isNight);
         intent.putExtra(KEY_THEME, isNight);
@@ -60,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             s = s.replace("-", "\u2212");
             mRpnWrapper.buildOutputFromString(s);
             mRpnWrapper.buildOutputStringFromOutList();
+            mResultString.setText(getResources().getString(R.string.hintToOuterCall));
+//            mRpnWrapper.calculate();
+//            updateState();
         }
     }
 
