@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_padding">10dp</dimen>
+    <dimen name="input_text_size">32sp</dimen>
+    <dimen name="result_text_size">24sp</dimen>
+    <dimen name="button_text_size">18dp</dimen>
+    <dimen name="button_width">0dp</dimen>
+    <dimen name="button_height">0dp</dimen>
+    <dimen name="button_margin">1dp</dimen>
+    <dimen name="button_inset">0dp</dimen>
+    <dimen name="saveSettingsButtonMargin">1dp</dimen>
+    <dimen name="settingsWeight1">10</dimen>
+    <dimen name="settingsWeight2">10</dimen>
+    <dimen name="settingsWeightSpace">60</dimen>
+
+    <item name="GLineH1Prc" type="dimen" format="float">0.25</item>
+    <item name="GLineH2Prc" type="dimen" format="float">0.37</item>
+    <item name="GLineH3Prc" type="dimen" format="float">0.49</item>
+    <item name="GLineH4Prc" type="dimen" format="float">0.61</item>
+    <item name="GLineH5Prc" type="dimen" format="float">0.73</item>
+    <item name="GLineH6Prc" type="dimen" format="float">0.85</item>
+</resources>

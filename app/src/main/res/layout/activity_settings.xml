@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/notebook11"
+    android:backgroundTint="?attr/colorSurface"
+    android:backgroundTintMode="multiply"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/dayNightSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@dimen/settingsWeight1"
+        android:text="@string/day_night_switch" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="@dimen/settingsWeightSpace"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveSettingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="@dimen/settingsWeight2"
+        android:layout_margin="@dimen/saveSettingsButtonMargin"
+        android:text="@string/save_settings_button_text" />
+</LinearLayout>
